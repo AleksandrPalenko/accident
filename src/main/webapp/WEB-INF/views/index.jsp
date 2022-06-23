@@ -29,6 +29,29 @@
     <title>Accident</title>
 </head>
 <body>
-Hello : ${accounts}
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Text</th>
+                <th scope="col">Address</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="ac" items="${accident}">
+                <tr>
+                    <td>c:out value = ${ac.id}</td>
+                    <td>c:out value = ${ac.name}</td>
+                    <td>c:out value = ${ac.text}</td>
+                    <td>c:out value = ${ac.address}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>

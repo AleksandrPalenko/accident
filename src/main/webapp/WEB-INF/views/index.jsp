@@ -41,9 +41,11 @@
             </tr>
             </thead>
             <tbody>
+            <a href="<c:url value='/create'/>">Добавить инцидент</a>
             <c:forEach var="ac" items="${accident}">
                 <tr>
                     <td>c:out value = ${ac.id}</td>
+                    <a href="<c:url value='/update'/>">Редактировать инцидент</a>
                     <td>c:out value = ${ac.name}</td>
                     <td>c:out value = ${ac.text}</td>
                     <td>c:out value = ${ac.address}</td>

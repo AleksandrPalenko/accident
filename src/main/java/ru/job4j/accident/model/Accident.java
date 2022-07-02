@@ -66,4 +66,5 @@ public class Accident {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

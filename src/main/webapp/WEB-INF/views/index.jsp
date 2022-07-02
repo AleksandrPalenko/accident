@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <!-- Required meta tags -->
@@ -45,7 +44,7 @@
             <c:forEach var="ac" items="${accident}">
                 <tr>
                     <td>c:out value = ${ac.id}</td>
-                    <a href="<c:url value='/update'/>">Редактировать инцидент</a>
+                    <a href="<c:url value='/edit'/>">Редактировать инцидент</a>
                     <td>c:out value = ${ac.name}</td>
                     <td>c:out value = ${ac.text}</td>
                     <td>c:out value = ${ac.address}</td>

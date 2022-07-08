@@ -14,6 +14,8 @@ public class Accident {
 
     private AccidentType type;
 
+    private Set<Rule> rules;
+
     public Accident() {
     }
 
@@ -63,6 +65,18 @@ public class Accident {
 
     public void setType(AccidentType type) {
         this.type = type;
+    }
+
+    public Set<Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(Set<Rule> rules) {
+        this.rules = rules;
+    }
+
+    public void addRule(Rule rule) {
+        rules.add(rule);
     }
 
     @Override

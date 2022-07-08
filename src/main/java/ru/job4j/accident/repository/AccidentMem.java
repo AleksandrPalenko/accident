@@ -10,11 +10,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class AccidentMem {
 
-    private final HashMap<Integer, Accident> accidents = new HashMap<>();
+    private final Map<Integer, Accident> accidents = new HashMap<>();
 
     private final AtomicInteger ids = new AtomicInteger(1);
 
-    private final HashMap<Integer, AccidentType> accidentType = new HashMap<>();
+    private final Map<Integer, AccidentType> accidentType = new HashMap<>();
 
     private AccidentMem() {
         accidentType.put(1, AccidentType.of(1, "Две машины"));
@@ -47,5 +47,6 @@ public class AccidentMem {
     public Collection<AccidentType> findAllType() {
         return accidentType.values();
     }
+
 }
 

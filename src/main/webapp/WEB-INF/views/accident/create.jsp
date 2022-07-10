@@ -27,8 +27,16 @@
     <table>
         <tr>
             <td>Название:</td>
-            <input type="hidden" name="id" value="${accident.id}">
-            <td><input type='text' name='name' value="${accident.name}"></td>
+            <input type="hidden" name="id" value="0">
+            <td><input type='text' name='name'></td>
+        </tr>
+        <tr>
+            <td>Описание нарушения:</td>
+            <td><input type='text' name='text' value="${accident.text}"></td>
+        </tr>
+        <tr>
+            <td>Адрес:</td>
+            <td><input type='text' name='address' value="${accident.address}"></td>
         </tr>
         <tr>
             <td>Тип:</td>
@@ -48,12 +56,7 @@
                     </c:forEach>
                 </select>
         </tr>
-        <tr>
-            <td>Описание:</td>
-            <td><input type='text' name='text' value="${accident.text}"></td>
-        </tr>
-        <tr>
-            <td colspan='2'><input class="btn btn-primary btn-sm" name="submit" type="submit" value="Сохранить"/></td>
+        <td colspan='2'><input name="submit" type="submit" value="Сохранить" /></td>
         </tr>
     </table>
 </form>

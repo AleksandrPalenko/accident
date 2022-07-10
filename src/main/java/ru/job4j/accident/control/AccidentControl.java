@@ -30,26 +30,27 @@ public class AccidentControl {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        accidents.create(accident);
         String[] ids = req.getParameterValues("rIds");
-        for (String rules:ids) {
-            accident.addRule(accidents.findByRuleId(Integer.parseInt(rules)));
+        if (ids != null) {
+            accidents.create(accident, ids);
         }
         return "redirect:/";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/update")
     public String edit(@RequestParam("id") int accidentId, @NotNull Model model) {
-        model.addAttribute("accident", accidents.findById(accidentId));
+        model.addAttribute("accident", accidents.findByAccidentId(accidentId));
+        model.addAttribute("types", accidents.findAllTypes());
+        model.addAttribute("rules", accidents.findAllRules());
         return "accident/edit";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/edit")
     public String update(@ModelAttribute Accident accident, HttpServletRequest req) {
-        accidents.update(accident);
         String[] ids = req.getParameterValues("rIds");
-        for (String rules:ids) {
-            accident.addRule(accidents.findByRuleId(Integer.parseInt(rules)));
+        if (ids != null) {
+            accident.setRules(accidents.findRulesForAccident(ids));
+            accidents.update(accident);
         }
         return "redirect:/";
     }

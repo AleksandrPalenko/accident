@@ -1,12 +1,12 @@
 package ru.job4j.accident.model;
 
-import javax.persistence.*;
 import java.util.Objects;
 
 
 public class Rule {
 
     private int id;
+
     private String name;
 
     public static Rule of(int id, String name) {

@@ -33,24 +33,46 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Text</th>
-                <th scope="col">Address</th>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Адрес</th>
+                <th scope="col">Тип</th>
+                <th scope="col">Статьи</th>
             </tr>
             </thead>
             <tbody>
-            <a href="<c:url value='/create'/>">Добавить инцидент</a>
-            <c:forEach var="ac" items="${accident}">
+            <c:forEach var="accident" items="${accidents}">
                 <tr>
-                    <td>c:out value = ${ac.id}</td>
-                    <a href="<c:url value='/edit'/>">Редактировать инцидент</a>
-                    <td>c:out value = ${ac.name}</td>
-                    <td>c:out value = ${ac.text}</td>
-                    <td>c:out value = ${ac.address}</td>
+                    <td>
+                        <a href="<c:url value='/update?id=${accident.id}'/>">
+                            <i class="fa fa-book"></i>
+                        </a>
+                        <c:out value="${accident.id}"/>
+                    </td>
+                    <td>
+                        <c:out value="${accident.name}"/>
+                    </td>
+                    <td>
+                        <c:out value="${accident.text}"/>
+                    </td>
+                    <td>
+                        <c:out value="${accident.address}"/>
+                    </td>
+                    <td>
+                        <c:out value="${accident.type.name}"/>
+                    </td>
+                    <td>
+                        <c:forEach var="rule" items="${accident.rules}">
+                            <c:out value="${rule.name}"/>
+                        </c:forEach>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
+            <div>
+                <a href="<c:url value='/create'/>" class="btn btn-primary" role="button">Добавить инцидент</a>
+            </div>
         </table>
     </div>
 </div>

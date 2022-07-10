@@ -4,47 +4,53 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
-import ru.job4j.accident.repository.AccidentRuleMem;
+import ru.job4j.accident.repository.AccidentJdbcTemplate;
 
-import java.util.Collection;
+import java.util.*;
 
 @Service
 public class AccidentService {
 
-    private final AccidentMem accidentMem;
-    private final AccidentRuleMem accidentRuleMem;
+    private final AccidentJdbcTemplate accidentJdbcRepository;
 
-    public AccidentService(AccidentMem accidentMem, AccidentRuleMem accidentRuleMem) {
-        this.accidentMem = accidentMem;
-        this.accidentRuleMem = accidentRuleMem;
+    public AccidentService(AccidentJdbcTemplate accidentJdbcRepository) {
+        this.accidentJdbcRepository = accidentJdbcRepository;
     }
 
     public Collection<Accident> findAll() {
-        return accidentMem.findAll();
+        return accidentJdbcRepository.getAll();
     }
 
-    public void create(Accident accident) {
-        accidentMem.create(accident);
+    public void create(Accident accident, String[] rIds) {
+        if (accident.getId() == 0) {
+            accidentJdbcRepository.save(accident, rIds);
+        } else {
+            accidentJdbcRepository.update(accident);
+        }
+
     }
 
-    public Accident findById(int id) {
-        return accidentMem.findById(id);
+    public Accident findByAccidentId(int id) {
+        return accidentJdbcRepository.findByAccidentId(id);
     }
 
     public void update(Accident accident) {
-         accidentMem.update(accident);
+        accidentJdbcRepository.update(accident);
     }
 
     public Collection<AccidentType> findAllTypes() {
-        return accidentMem.findAllType();
+        return accidentJdbcRepository.findAllTypes();
     }
 
     public Collection<Rule> findAllRules() {
-        return accidentRuleMem.findAllRules();
+        return accidentJdbcRepository.findAllRules();
     }
 
-    public Rule findByRuleId(int id) {
-        return accidentRuleMem.findById(id);
+    public Set<Rule> findRulesForAccident(String[] ids) {
+        Set<Rule> rules = new HashSet<>();
+        if (ids != null) {
+            Arrays.stream(ids).forEach(id -> rules.add(accidentJdbcRepository.findRuleById(Integer.parseInt(id))));
+        }
+        return rules;
     }
 }

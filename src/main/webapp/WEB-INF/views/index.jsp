@@ -29,7 +29,10 @@
 </head>
 <body>
 <div class="container">
-    <a href="<c:url value='/logout'/>" class="btn btn-primary" role="button">Выйти из приложения</a>
+    <div>
+        Login as : ${user.username} |
+    </div>
+    <a href="<c:url value='/logout'/>" class="btn btn-primary" role="button">Exit</a>
     <div class="row">
         <table class="table">
             <thead>

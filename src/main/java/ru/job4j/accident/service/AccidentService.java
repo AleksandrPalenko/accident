@@ -1,55 +1,60 @@
 package ru.job4j.accident.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentHibernate;
+import ru.job4j.accident.repository.AccidentRepository;
+import ru.job4j.accident.repository.AccidentTypeRepository;
+import ru.job4j.accident.repository.RuleRepository;
 
 import java.util.*;
 
 @Service
 public class AccidentService {
 
-    private final AccidentHibernate accidentsRep;
+    private final AccidentRepository store;
+    private final AccidentTypeRepository storeOfType;
+    private final RuleRepository storeOfRule;
 
-    public AccidentService(AccidentHibernate accidentsRep) {
-        this.accidentsRep = accidentsRep;
+    @Autowired
+    public AccidentService(AccidentRepository store, AccidentTypeRepository storeOfType, RuleRepository storeOfRule) {
+        this.store = store;
+        this.storeOfType = storeOfType;
+        this.storeOfRule = storeOfRule;
     }
 
-    public Collection<Accident> findAll() {
-        return accidentsRep.getAll();
+    public List<Accident> findAll() {
+        return store.findAll();
     }
 
-    public void create(Accident accident, String[] rIds) {
+    public void create(Accident accident) {
         if (accident.getId() == 0) {
-            accidentsRep.save(accident, rIds);
-        } else {
-            accidentsRep.update(accident);
+            store.save(accident);
         }
-
     }
 
     public Accident findByAccidentId(int id) {
-        return accidentsRep.findByAccidentId(id);
+        return store.findById(id).get();
     }
 
     public void update(Accident accident) {
-        accidentsRep.update(accident);
+        store.save(accident);
     }
 
     public Collection<AccidentType> findAllTypes() {
-        return accidentsRep.findAllTypes();
+        return storeOfType.findAll();
     }
 
     public Collection<Rule> findAllRules() {
-        return accidentsRep.findAllRules();
+        return storeOfRule.findAll();
     }
 
     public Set<Rule> findRulesForAccident(String[] ids) {
         Set<Rule> rules = new HashSet<>();
         if (ids != null) {
-            Arrays.stream(ids).forEach(id -> rules.add(accidentsRep.findRuleById(Integer.parseInt(id))));
+            Arrays.stream(ids).forEach(id -> rules.add(storeOfRule.findById(Integer.parseInt(id)).orElse(null)));
         }
         return rules;
     }

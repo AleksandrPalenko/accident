@@ -32,7 +32,8 @@ public class AccidentControl {
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
         if (ids != null) {
-            accidents.create(accident, ids);
+            accidents.create(accident);
+            accident.setRules(accidents.findRulesForAccident(ids));
         }
         return "redirect:/";
     }

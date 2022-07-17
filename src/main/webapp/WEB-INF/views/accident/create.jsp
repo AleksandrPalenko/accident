@@ -23,7 +23,7 @@
     <title>Accident</title>
 </head>
 <body>
-<form action="<c:url value='/save'/>" method='POST'>
+<form action="<c:url value='/save'/>" required="true" method='POST'>
     <table>
         <tr>
             <td>Название:</td>
